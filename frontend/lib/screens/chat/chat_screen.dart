@@ -12,12 +12,26 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
   final List<Map<String, dynamic>> _messages = [];
   bool _showSuggestions = true; // Track whether to show suggestions
+  bool _hasText = false; // Track if user has typed anything
+
+  @override
+  void initState() {
+    super.initState();
+    // Listen to text changes to update send button color
+    _messageController.addListener(() {
+      setState(() {
+        _hasText = _messageController.text.trim().isNotEmpty;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: _buildAppBar(),
+      // Add resizeToAvoidBottomInset to handle keyboard properly
+      resizeToAvoidBottomInset: true,
       body: Column(
         children: [
           // Welcome section
@@ -29,7 +43,7 @@ class _ChatScreenState extends State<ChatScreen> {
             color: AppColors.lightGray,
           ),
           
-          // Chat messages area
+          // Chat messages area - this will shrink when keyboard appears
           Expanded(
             child: _buildChatArea(),
           ),
@@ -110,7 +124,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             text: 'Hola, ',
                             style: TextStyle(
                               fontSize: 24.0,
-                              fontWeight: FontWeight.bold, // Made bolder
+                              fontWeight: FontWeight.bold,
                               color: AppColors.black,
                             ),
                           ),
@@ -118,7 +132,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             text: 'Maria.',
                             style: TextStyle(
                               fontSize: 24.0,
-                              fontWeight: FontWeight.bold, // Made bolder
+                              fontWeight: FontWeight.bold,
                               color: AppColors.lightPurple,
                             ),
                           ),
@@ -130,7 +144,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       '¿Cómo te podemos',
                       style: TextStyle(
                         fontSize: 18.0,
-                        fontWeight: FontWeight.w600, // Made bolder
+                        fontWeight: FontWeight.w600,
                         color: AppColors.black,
                       ),
                     ),
@@ -138,7 +152,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       'ayudar hoy?',
                       style: TextStyle(
                         fontSize: 18.0,
-                        fontWeight: FontWeight.bold, // Made bolder
+                        fontWeight: FontWeight.bold,
                         color: AppColors.lightTeal,
                       ),
                     ),
@@ -164,7 +178,7 @@ class _ChatScreenState extends State<ChatScreen> {
             'Escribe tu pregunta',
             style: TextStyle(
               fontSize: 14.0,
-              fontWeight: FontWeight.w500, // Made slightly bolder
+              fontWeight: FontWeight.w500,
               color: AppColors.textGray,
             ),
           ),
@@ -174,55 +188,56 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget _buildChatArea() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
-      child: Column(
-        children: [
-          // Show suggestions only if no messages and _showSuggestions is true
-          if (_showSuggestions && _messages.isEmpty) ...[
-            _buildSuggestedMessages(),
-            const SizedBox(height: 16.0),
-            // Date
-            Center(
-              child: Text(
-                '06/06/2025',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: AppColors.textGray.withOpacity(0.6),
+    return SingleChildScrollView( // Make the chat area scrollable
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min, // Take minimum space needed
+          children: [
+            // Show suggestions only if no messages and _showSuggestions is true
+            if (_showSuggestions && _messages.isEmpty) ...[
+              _buildSuggestedMessages(),
+              const SizedBox(height: 16.0),
+              // Date
+              Center(
+                child: Text(
+                  '06/06/2025',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: AppColors.textGray.withOpacity(0.6),
+                  ),
                 ),
               ),
-            ),
-          ],
-          
-          // Chat messages - now takes full available space when suggestions are hidden
-          if (_messages.isNotEmpty) ...[
-            Expanded(
-              child: ListView.builder(
+            ],
+            
+            // Chat messages
+            if (_messages.isNotEmpty) ...[
+              ListView.builder(
+                shrinkWrap: true, // Important: makes ListView take only needed space
+                physics: const NeverScrollableScrollPhysics(), // Disable ListView scrolling
                 itemCount: _messages.length,
                 itemBuilder: (context, index) {
                   final message = _messages[index];
                   return _buildMessageBubble(message);
                 },
               ),
-            ),
-          ] else if (!_showSuggestions) ...[
-            // Show empty space when suggestions are hidden but no messages yet
-            const Expanded(
-              child: Center(
-                child: Text(
-                  'Comienza la conversación...',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: AppColors.textGray,
+            ] else if (!_showSuggestions) ...[
+              // Show empty space when suggestions are hidden but no messages yet
+              Container(
+                height: 200.0, // Fixed height instead of Expanded
+                child: const Center(
+                  child: Text(
+                    'Comienza la conversación...',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: AppColors.textGray,
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ],
-          
-          // Add spacer if suggestions are shown to push them up
-          if (_showSuggestions && _messages.isEmpty) const Spacer(),
-        ],
+        ),
       ),
     );
   }
@@ -238,7 +253,7 @@ class _ChatScreenState extends State<ChatScreen> {
         'color': AppColors.lightTeal,
       },
       {
-        'text': '¿Cómo puedo crear cursos en la app?',
+        'text': '¿Cómo puedo crear cursos en la app? (No se puede lol)',
         'color': AppColors.lightPurple,
       },
     ];
@@ -405,7 +420,7 @@ class _ChatScreenState extends State<ChatScreen> {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: AppColors.lightGray.withOpacity(0.3),
+                color: AppColors.lightGray,
                 borderRadius: BorderRadius.circular(25.0),
               ),
               child: TextField(
@@ -423,28 +438,37 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 ),
                 onSubmitted: (text) => _sendMessage(text),
+                onChanged: (text) {
+                  // Hide suggestions when user starts typing
+                  if (text.isNotEmpty && _showSuggestions) {
+                    setState(() {
+                      _showSuggestions = false;
+                    });
+                  }
+                },
               ),
             ),
           ),
           
           const SizedBox(width: 8.0),
           
-          // Send button
+          // Send button - color changes based on _hasText
           GestureDetector(
             onTap: () => _sendMessage(_messageController.text),
             child: Container(
               width: 40.0,
               height: 40.0,
               decoration: BoxDecoration(
-                color: AppColors.lighterPurple,
+                color: _hasText 
+                    ? AppColors.lighterPurple  // Purple when user has typed
+                    : AppColors.lightGray,     // Gray when empty
                 borderRadius: BorderRadius.circular(20.0),
               ),
               child: Center(
                 child: Image.asset(
                   'assets/icons/send.png',
-                  width: 20.0,
-                  height: 20.0,
-                  color: AppColors.white,
+                  width: 30.0,
+                  height: 30.0,
                 ),
               ),
             ),

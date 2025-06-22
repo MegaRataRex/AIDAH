@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import '../../utils/colors.dart';
+import '../../screens/home/home_screen.dart';
+import '../../screens/courses/courses_screen.dart';
 import '../../screens/chat/chat_screen.dart';
 
-class CustomBottomNavigation extends StatelessWidget {
-  final int selectedIndex;
-  final Function(int) onItemTapped;
-
-  const CustomBottomNavigation({
+class BottomNavigation extends StatelessWidget {
+  final int currentIndex;
+  
+  const BottomNavigation({
     Key? key,
-    required this.selectedIndex,
-    required this.onItemTapped,
+    required this.currentIndex,
   }) : super(key: key);
 
   @override
@@ -29,51 +29,101 @@ class CustomBottomNavigation extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildNavItem(context, 0, 'assets/icons/nav_home.png'),
-          _buildNavItem(context, 1, 'assets/icons/nav_courses.png'),
-          _buildNavItem(context, 2, 'assets/icons/nav_community.png'),
-          _buildNavItem(context, 3, 'assets/icons/nav_help.png'),
-          _buildNavItem(context, 4, 'assets/icons/nav_test.png'),
+          _buildNavItem(
+            context,
+            iconPath: 'assets/icons/nav_home.png',
+            index: 0,
+            onTap: () {
+              if (currentIndex != 0) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                );
+              }
+            },
+          ),
+          _buildNavItem(
+            context,
+            iconPath: 'assets/icons/nav_courses.png', // Book icon for courses
+            index: 1,
+            onTap: () {
+              if (currentIndex != 1) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CoursesScreen()),
+                );
+              }
+            },
+          ),
+          _buildNavItem(
+            context,
+            iconPath: 'assets/icons/nav_community.png',
+            index: 2,
+            onTap: () {
+              print('Settings tapped');
+            },
+          ),
+          _buildNavItem(
+            context,
+            iconPath: 'assets/icons/nav_help.png',
+            index: 3,
+            onTap: () {
+              if (currentIndex != 3) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ChatScreen()),
+                );
+              }
+            },
+          ),
+          _buildNavItem(
+            context,
+            iconPath: 'assets/icons/nav_test.png',
+            index: 4,
+            onTap: () {
+              print('Test tapped');
+            },
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildNavItem(BuildContext context, int index, String iconPath) {
-    final isSelected = selectedIndex == index;
+  Widget _buildNavItem(
+    BuildContext context, {
+    required String iconPath,
+    required int index,
+    required VoidCallback onTap,
+  }) {
+    final isSelected = currentIndex == index;
     
     return GestureDetector(
-      onTap: () {
-        if (index == 3) { // Help icon index
-          // Navigate to chat screen
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ChatScreen(),
-            ),
-          );
-        } else {
-          onItemTapped(index);
-        }
-      },
+      onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-        decoration: BoxDecoration(
-          color: isSelected ? AppColors.lightTeal.withOpacity(0.2) : Colors.transparent,
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        child: Image.asset(
-          iconPath,
-          width: 24.0,
-          height: 24.0,
-          errorBuilder: (context, error, stackTrace) {
-            // Fallback icon if image fails to load
-            return Icon(
-              Icons.circle,
-              size: 24.0,
-              color: isSelected ? AppColors.primaryPurple : AppColors.textGray,
-            );
-          },
+        padding: const EdgeInsets.symmetric(vertical: 12.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 32.0,
+              height: 32.0,
+              child: Image.asset(
+                iconPath,
+                //color: isSelected ? AppColors.primaryPurple : AppColors.textGray,
+                width: 24.0,
+                height: 24.0,
+              ),
+            ),
+            const SizedBox(height: 4.0),
+            Container(
+              width: 4.0,
+              height: 4.0,
+              decoration: BoxDecoration(
+                color: isSelected ? AppColors.primaryPurple : Colors.transparent,
+                shape: BoxShape.circle,
+              ),
+            ),
+          ],
         ),
       ),
     );

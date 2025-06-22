@@ -36,7 +36,7 @@ class HeaderSection extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 24.0,
                           fontWeight: FontWeight.w500,
-                          color: AppColors.lightPurple, // Changed to primaryPurple
+                          color: AppColors.primaryPurple,
                         ),
                       ),
                     ],
@@ -66,13 +66,19 @@ class HeaderSection extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 12.0),
-                // Profile icon
-                Container(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset(
-                    'assets/icons/profile.png',
-                    width: 24.0,
-                    height: 24.0,
+                // Profile icon - now clickable to open drawer
+                GestureDetector(
+                  onTap: () {
+                    // Open the side drawer
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      'assets/icons/profile.png',
+                      width: 24.0,
+                      height: 24.0,
+                    ),
                   ),
                 ),
               ],
