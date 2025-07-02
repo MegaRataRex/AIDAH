@@ -42,7 +42,7 @@ class TestInstructionsScreen extends StatelessWidget {
                   // Centered title
                   Expanded(
                     child: const Text(
-                      'TEST EDAH',
+                      'TEST PREDIAGNÓSTICO',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 18.0,
@@ -79,7 +79,7 @@ class TestInstructionsScreen extends StatelessWidget {
                     
                     // Subtitle
                     const Text(
-                      'ESTAS A PUNTO DE TOMAR EL TEST EDAH',
+                      'ESTAS A PUNTO DE TOMAR EL TEST',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 14.0,

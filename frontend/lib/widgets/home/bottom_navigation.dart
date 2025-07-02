@@ -1,3 +1,4 @@
+import 'package:AIDAH/screens/community/community_screen.dart';
 import 'package:flutter/material.dart';
 import '../../screens/test/test_edah_screen.dart';
 import '../../utils/colors.dart';
@@ -61,7 +62,12 @@ class BottomNavigation extends StatelessWidget {
             iconPath: 'assets/icons/nav_community.png',
             index: 2,
             onTap: () {
-              print('Community tapped');
+              if (currentIndex != 2) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CommunityScreen()),
+                );
+              }
             },
           ),
           _buildNavItem(

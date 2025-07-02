@@ -53,7 +53,7 @@ class _EvaluationHistoryScreenState extends State<EvaluationHistoryScreen> {
                   // Centered title
                   Expanded(
                     child: const Text(
-                      'TEST EDAH',
+                      'TEST PREDIAGNÓSTICO',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 18.0,

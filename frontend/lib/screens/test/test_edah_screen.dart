@@ -38,7 +38,7 @@ class TestEdahScreen extends StatelessWidget {
                   // Centered title
                   Expanded(
                     child: const Text(
-                      'TEST EDAH',
+                      'TEST PREDIAGNÓSTICO',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 18.0,
@@ -62,9 +62,9 @@ class TestEdahScreen extends StatelessWidget {
                   children: [
                     // Large TEST EDAH title
                     const Text(
-                      'TEST EDAH',
+                      'TEST PREDIAGNÓSTICO',
                       style: TextStyle(
-                        fontSize: 36.0,
+                        fontSize: 34.0,
                         fontWeight: FontWeight.bold,
                         color: AppColors.primaryPurple,
                       ),
@@ -74,7 +74,7 @@ class TestEdahScreen extends StatelessWidget {
                     
                     // Subtitle
                     const Text(
-                      'Realiza el test EDAH para un pre-diagnóstico',
+                      'Realiza el test para un pre-diagnóstico',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16.0,
