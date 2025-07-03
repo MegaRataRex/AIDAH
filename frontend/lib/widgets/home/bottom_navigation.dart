@@ -1,4 +1,6 @@
+import 'package:AIDAH/screens/community/community_screen.dart';
 import 'package:flutter/material.dart';
+import '../../screens/test/test_edah_screen.dart';
 import '../../utils/colors.dart';
 import '../../screens/home/home_screen.dart';
 import '../../screens/courses/courses_screen.dart';
@@ -60,7 +62,12 @@ class BottomNavigation extends StatelessWidget {
             iconPath: 'assets/icons/nav_community.png',
             index: 2,
             onTap: () {
-              print('Settings tapped');
+              if (currentIndex != 2) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CommunityScreen()),
+                );
+              }
             },
           ),
           _buildNavItem(
@@ -81,7 +88,12 @@ class BottomNavigation extends StatelessWidget {
             iconPath: 'assets/icons/nav_test.png',
             index: 4,
             onTap: () {
-              print('Test tapped');
+              if (currentIndex != 3) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const TestEdahScreen()),
+                );
+              }
             },
           ),
         ],
