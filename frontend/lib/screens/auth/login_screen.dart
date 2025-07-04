@@ -43,16 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Stack(
                           children: [
                             // Pattern in top left corner
-                            Positioned(
-                              top: 10,
-                              left: 0,
-                              child: Image.asset(
-                                'assets/images/pattern.png', // Your pattern image
-                                width: screenWidth * 0.35,
-                                height: screenWidth * 0.35,
-                                fit: BoxFit.contain,
-                              ),
-                            ),
+                           
                             // Bird illustration centered
                             Center(
                               child: Container(

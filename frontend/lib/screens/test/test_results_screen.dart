@@ -220,7 +220,7 @@ class TestResultsScreen extends StatelessWidget {
             child: Text(
               '$score Puntos',
               style: const TextStyle(
-                fontSize: 14.0,
+                fontSize: 12.0,
                 color: AppColors.textGray,
               ),
             ),
@@ -230,7 +230,7 @@ class TestResultsScreen extends StatelessWidget {
             child: Text(
               level,
               style: const TextStyle(
-                fontSize: 14.0,
+                fontSize: 10.0,
                 fontWeight: FontWeight.w600,
                 color: AppColors.primaryPurple,
               ),

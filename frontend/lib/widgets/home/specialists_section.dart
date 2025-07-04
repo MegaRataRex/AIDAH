@@ -170,19 +170,19 @@ class SpecialistsSection extends StatelessWidget {
     {
       'image': 'assets/images/psychologist1.png',
       'profession': 'Consultorio de Psicología',
-      'name': 'Yeb Teb - 35 años',
+      'name': 'Yeb Teb',
       'description': 'Estoy aquí para ayudarte! contactame sin compromiso',
     },
     {
       'image': 'assets/images/nutritionist1.png',
       'profession': 'Psicoterapeuta cognitivo',
-      'name': 'José Roberto - 27 años',
+      'name': 'José Roberto Hernández Díaz',
       'description': 'Estoy aquí para ayudarte! contactame sin compromiso',
     },
     {
-      'image': 'assets/images/psychologist1.png',
-      'profession': 'Psicólogo especialista en pedagogía',
-      'name': 'Luis - 35 años',
+      'image': 'assets/images/beatriz.jpg',
+      'profession': 'Psicóterapeuta en niños y adolescentes',
+      'name': 'Beatriz López Amaral',
       'description': 'Estoy aquí para ayudarte! contactame sin compromiso',
     },
   ];

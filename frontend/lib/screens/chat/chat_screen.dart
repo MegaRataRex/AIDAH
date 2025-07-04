@@ -74,7 +74,7 @@ class _ChatScreenState extends State<ChatScreen> {
         onPressed: () => Navigator.pop(context),
       ),
       title: const Text(
-        'AIDAH HELP',
+        'AIDAH',
         style: TextStyle(
           fontSize: 18.0,
           fontWeight: FontWeight.w600,
@@ -245,15 +245,15 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget _buildSuggestedMessages() {
     final suggestions = [
       {
-        'text': '¿Cómo puedo realizar el test FDAH?',
+        'text': '¿Cómo puedo realizar el prediagnóstico?',
         'color': AppColors.lighterPurple,
       },
       {
-        'text': '¿En todos los cursos obtengo una certificación?',
+        'text': '¿Cómo puedo personalizar las tareas de mi hijo?',
         'color': AppColors.lightTeal,
       },
       {
-        'text': '¿Cómo puedo crear cursos en la app? (No se puede lol)',
+        'text': 'Ayudame a crear una rutina divertida para mi hijo',
         'color': AppColors.lightPurple,
       },
     ];
