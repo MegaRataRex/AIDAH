@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../utils/colors.dart';
 import '../../widgets/home/bottom_navigation.dart';
-import '../../widgets/home/header_section.dart';
 import '../../widgets/home/side_drawer.dart';
 
 class CommunityScreen extends StatefulWidget {
@@ -63,17 +62,6 @@ class _CommunityScreenState extends State<CommunityScreen> {
   Widget _buildHeader() {
     return Row(
       children: [
-        GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: Container(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              'assets/icons/arrow_left.png',
-              width: 24.0,
-              height: 24.0,
-            ),
-          ),
-        ),
         // Add Expanded to center the title
         Expanded(
           child: Center(

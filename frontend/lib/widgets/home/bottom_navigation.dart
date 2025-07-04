@@ -1,4 +1,4 @@
-import 'package:AIDAH/screens/community/community_screen.dart';
+import 'package:frontend/screens/community/community_screen.dart';
 import 'package:flutter/material.dart';
 import '../../screens/test/test_edah_screen.dart';
 import '../../utils/colors.dart';

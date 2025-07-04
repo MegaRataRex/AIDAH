@@ -169,14 +169,14 @@ class SpecialistsSection extends StatelessWidget {
   static final List<Map<String, String>> _specialists = [
     {
       'image': 'assets/images/psychologist1.png',
-      'profession': 'Psicólogo especialista en pedagogía',
-      'name': 'Luis - 35 años',
+      'profession': 'Consultorio de Psicología',
+      'name': 'Yeb Teb - 35 años',
       'description': 'Estoy aquí para ayudarte! contactame sin compromiso',
     },
     {
       'image': 'assets/images/nutritionist1.png',
-      'profession': 'Nutricionista en Trastorno de Déficit Atención y TEA',
-      'name': 'Fernanda - 27 años',
+      'profession': 'Psicoterapeuta cognitivo',
+      'name': 'José Roberto - 27 años',
       'description': 'Estoy aquí para ayudarte! contactame sin compromiso',
     },
     {
