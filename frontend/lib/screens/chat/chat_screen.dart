@@ -507,7 +507,7 @@ void _sendMessage(String message) async {
   try {
     // Call backend AI endpoint
     final response = await http.post(
-      Uri.parse('aidah-production.up.railway.app/ask-ai'),// Replace with your actual URL in prod
+      Uri.parse('https://aidah-production.up.railway.app/ask-ai'),// Replace with your actual URL in prod
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'message': message}),
     );
