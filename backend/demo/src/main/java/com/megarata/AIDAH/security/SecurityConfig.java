@@ -13,8 +13,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Allow POST from frontend
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/ask-ai").permitAll() // ← allow public AI access
-                        .anyRequest().authenticated()           // protect everything else
+                        .anyRequest().permitAll()
                 );
 
         return http.build();
