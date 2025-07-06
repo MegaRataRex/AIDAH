@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../utils/colors.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -74,7 +77,7 @@ class _ChatScreenState extends State<ChatScreen> {
         onPressed: () => Navigator.pop(context),
       ),
       title: const Text(
-        'AIDAH HELP',
+        'AIDAH',
         style: TextStyle(
           fontSize: 18.0,
           fontWeight: FontWeight.w600,
@@ -245,15 +248,15 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget _buildSuggestedMessages() {
     final suggestions = [
       {
-        'text': '¿Cómo puedo realizar el test FDAH?',
+        'text': '¿Cómo puedo realizar el prediagnóstico?',
         'color': AppColors.lighterPurple,
       },
       {
-        'text': '¿En todos los cursos obtengo una certificación?',
+        'text': '¿Cómo puedo personalizar las tareas de mi hijo?',
         'color': AppColors.lightTeal,
       },
       {
-        'text': '¿Cómo puedo crear cursos en la app? (No se puede lol)',
+        'text': 'Ayudame a crear una rutina divertida para mi hijo',
         'color': AppColors.lightPurple,
       },
     ];
@@ -485,33 +488,58 @@ class _ChatScreenState extends State<ChatScreen> {
     _sendMessage(message);
   }
 
-  void _sendMessage(String message) {
-    if (message.trim().isEmpty) return;
-    
-    setState(() {
-      // Hide suggestions when user starts typing their own message
-      _showSuggestions = false;
-      
-      _messages.add({
-        'text': message,
-        'isUser': true,
-        'timestamp': DateTime.now(),
-      });
-      
-      // Simulate bot response
-      Future.delayed(const Duration(seconds: 1), () {
-        setState(() {
-          _messages.add({
-            'text': 'Gracias por tu pregunta. Te ayudo con eso...',
-            'isUser': false,
-            'timestamp': DateTime.now(),
-          });
+void _sendMessage(String message) async {
+  if (message.trim().isEmpty) return;
+
+  setState(() {
+    _showSuggestions = false;
+
+    // Add user's message to chat
+    _messages.add({
+      'text': message,
+      'isUser': true,
+      'timestamp': DateTime.now(),
+    });
+  });
+
+  _messageController.clear();
+
+  try {
+    // Call backend AI endpoint
+    final response = await http.post(
+      Uri.parse('http://localhost:8080/ask-ai'), // Replace with your actual URL in prod
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'message': message}),
+    );
+
+    if (response.statusCode == 200) {
+      final responseData = jsonDecode(response.body);
+      final reply = responseData['response'];
+
+      setState(() {
+        _messages.add({
+          'text': reply,
+          'isUser': false,
+          'timestamp': DateTime.now(),
         });
       });
-    });
-    
-    _messageController.clear();
+    } else {
+      _showErrorMessage();
+    }
+  } catch (e) {
+    _showErrorMessage();
   }
+}
+
+void _showErrorMessage() {
+  setState(() {
+    _messages.add({
+      'text': 'Lo siento, hubo un problema al responder. Intenta más tarde.',
+      'isUser': false,
+      'timestamp': DateTime.now(),
+    });
+  });
+}
 
   @override
   void dispose() {

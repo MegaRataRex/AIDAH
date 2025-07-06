@@ -22,15 +22,42 @@ class _TestQuestionScreenState extends State<TestQuestionScreen> {
   // Sample questions - replace with actual EDAH test questions
   final List<Map<String, dynamic>> questions = [
     {
-      'question': '¿Le cuesta trabajo prestar atención a detalles o comete errores por descuido?',
+      'question': 'Es impulsivo, irritable',
       'options': ['Nunca', 'Poco', 'Bastante', 'Mucho'],
     },
     {
-      'question': '¿Tiene dificultad para mantener la atención en tareas o actividades?',
+      'question': 'Es llorón/a',
       'options': ['Nunca', 'Poco', 'Bastante', 'Mucho'],
     },
     {
-      'question': '¿Parece no escuchar cuando se le habla directamente?',
+      'question': 'Es más movido de lo normal',
+      'options': ['Nunca', 'Poco', 'Bastante', 'Mucho'],
+    },
+    {
+      'question': 'No puede estar quieto/a',
+      'options': ['Nunca', 'Poco', 'Bastante', 'Mucho'],
+    },
+    {
+      'question': 'Es destructor (ropas, juguetes, otros objetos)',
+      'options': ['Nunca', 'Poco', 'Bastante', 'Mucho'],
+    },
+    {
+      'question': 'No acaba las cosas que empieza',
+      'options': ['Nunca', 'Poco', 'Bastante', 'Mucho'],
+    },
+    {
+      'question': 'Se distrae fácilmente, tiene escasa atención',
+      'options': ['Nunca', 'Poco', 'Bastante', 'Mucho'],
+    },{
+      'question': 'Cambia bruscamente sus estados de ánimo',
+      'options': ['Nunca', 'Poco', 'Bastante', 'Mucho'],
+    },
+    {
+      'question': 'Sus esfuerzos se frustran fácilmente',
+      'options': ['Nunca', 'Poco', 'Bastante', 'Mucho'],
+    },
+    {
+      'question': 'Suele molestar frecuentemente a otros niños',
       'options': ['Nunca', 'Poco', 'Bastante', 'Mucho'],
     },
     // Add more questions as needed

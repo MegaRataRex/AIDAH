@@ -64,7 +64,7 @@ class TestEdahScreen extends StatelessWidget {
                     const Text(
                       'TEST PREDIAGNÓSTICO',
                       style: TextStyle(
-                        fontSize: 34.0,
+                        fontSize: 32.0,
                         fontWeight: FontWeight.bold,
                         color: AppColors.primaryPurple,
                       ),
