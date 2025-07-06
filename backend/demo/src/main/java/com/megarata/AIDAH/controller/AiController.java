@@ -25,14 +25,29 @@ public class AiController {
     public ResponseEntity<Map<String, String>> askAi(@RequestBody Map<String, String> body) {
         String userInput = body.get("message");
 
+        String adjustedPrompt = "Recuerda: responde únicamente con información útil relacionada con TDAH. " + userInput;
+
+        List<Map<String, String>> messages = List.of(
+                Map.of("role", "system", "content", """
+        Instrucciones estrictas:
+
+        1. Solo responde preguntas relacionadas con el TDAH.
+        2. Las respuestas deben estar dirigidas a personas con TDAH, o a sus padres o tutores.
+        3. Mantén las respuestas concisas. No te extiendas innecesariamente.
+        4. Puedes explicar brevemente si es útil, pero nunca divagues.
+        5. Evita respuestas genéricas, innecesarias o repetitivas.
+
+        Ahora responde a la siguiente pregunta:
+        """),
+                Map.of("role", "user", "content", adjustedPrompt)
+        );
+
+
         // Build OpenAI chat request
         Map<String, Object> request = new HashMap<>();
         request.put("model", "gpt-3.5-turbo");
-        request.put("messages", List.of(
-                Map.of("role", "user", "content", userInput),
-                Map.of("role", "system", "content", "You are a friendly assistant specialized in ADHD.")));
-        request.put("temperature", 0.3);
-
+        request.put("temperature", 0.2);
+        request.put("messages", messages);
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(apiKey);
         headers.setContentType(MediaType.APPLICATION_JSON);

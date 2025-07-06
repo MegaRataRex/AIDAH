@@ -507,14 +507,17 @@ void _sendMessage(String message) async {
   try {
     // Call backend AI endpoint
     final response = await http.post(
-      Uri.parse('http://localhost:8080/ask-ai'), // Replace with your actual URL in prod
+      Uri.parse('http://10.0.2.2:8080/ask-ai'),// Replace with your actual URL in prod
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'message': message}),
     );
 
     if (response.statusCode == 200) {
-      final responseData = jsonDecode(response.body);
-      final reply = responseData['response'];
+      final bodyBytes = response.bodyBytes; // ← use raw bytes
+final decoded = utf8.decode(bodyBytes); // ← decode with UTF-8
+final data = jsonDecode(decoded); // ← now parse JSON
+
+final reply = data['response']; // 
 
       setState(() {
         _messages.add({
